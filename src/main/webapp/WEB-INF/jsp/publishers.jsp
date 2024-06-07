@@ -12,6 +12,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>URL</th>
+        <th>Action</th>
     </tr>
     <c:forEach var="publisher" items="${publishers}">
         <tr>
@@ -19,6 +20,7 @@
             <td>${publisher.address}</td>
             <td>${publisher.phone}</td>
             <td>${publisher.url}</td>
+            <td><a href="publisher_books?name=${publisher.name}">View Books</a></td>
         </tr>
     </c:forEach>
 </table>
