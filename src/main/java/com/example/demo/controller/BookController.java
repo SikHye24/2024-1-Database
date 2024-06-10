@@ -51,6 +51,15 @@ public class BookController {
         return "statistics";
     }
 
+    @GetMapping("/author_statistics")
+    public String getAuthorStatistics(Model model) {
+        List<Object[]> authorStatistics = bookRepository.findAuthorStatistics();
+
+        model.addAttribute("authorStatistics", authorStatistics);
+
+        return "author_statistics";
+    }
+
     @PostMapping("/register_book")
     public String registerBook(@RequestParam Long isbn, @RequestParam String title,
                                @RequestParam int year, @RequestParam int price,

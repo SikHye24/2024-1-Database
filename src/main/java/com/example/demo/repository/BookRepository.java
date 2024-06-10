@@ -12,4 +12,11 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     @Query("SELECT b.year, AVG(b.price) FROM BookEntity b GROUP BY b.year ORDER BY b.year")
     List<Object[]> findAveragePriceByYear();
+
+    @Query("SELECT w.name, COUNT(b), MAX(b.price), MIN(b.price), AVG(b.price) " +
+            "FROM BookEntity b " +
+            "JOIN WrittenByEntity w ON b.isbn = w.isbn " +
+            "GROUP BY w.name")
+    List<Object[]> findAuthorStatistics();
+
 }
