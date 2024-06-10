@@ -60,6 +60,29 @@ public class BookController {
         return "author_statistics";
     }
 
+    @GetMapping("/discount")
+    public String getDiscountPage() {
+        return "discount";
+    }
+
+    @PostMapping("/search_books_by_stock")
+    public String searchBooksByStock(@RequestParam int stockThreshold, Model model) {
+        List<BookEntity> books = bookRepository.findBooksByStockThreshold(stockThreshold);
+        model.addAttribute("books", books);
+        model.addAttribute("stockThreshold", stockThreshold);
+        return "discount";
+    }
+
+    @PostMapping("/apply_discount")
+    public String applyDiscount(@RequestParam int stockThreshold, @RequestParam double discount, Model model) {
+        bookRepository.applyDiscountToBooksByStockThreshold(stockThreshold, 1 - discount / 100.0);
+        List<BookEntity> books = bookRepository.findBooksByStockThreshold(stockThreshold);
+        model.addAttribute("books", books);
+        model.addAttribute("stockThreshold", stockThreshold);
+        model.addAttribute("message", "Discount applied successfully!");
+        return "discount";
+    }
+
     @PostMapping("/register_book")
     public String registerBook(@RequestParam Long isbn, @RequestParam String title,
                                @RequestParam int year, @RequestParam int price,
