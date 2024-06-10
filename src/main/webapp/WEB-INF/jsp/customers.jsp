@@ -6,6 +6,7 @@
 </head>
 <body>
 <h2>Customers</h2>
+<a href="new_book">Register New Book</a>
 <table border="1">
     <tr>
         <th>Email</th>
