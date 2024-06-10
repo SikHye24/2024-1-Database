@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class BookController {
 
@@ -36,6 +38,17 @@ public class BookController {
     @GetMapping("/new_book")
     public String newBookForm() {
         return "new_book";
+    }
+
+    @GetMapping("/statistics")
+    public String getStatistics(Model model) {
+        Double averagePrice = bookRepository.findAveragePrice();
+        List<Object[]> averagePriceByYear = bookRepository.findAveragePriceByYear();
+
+        model.addAttribute("averagePrice", averagePrice);
+        model.addAttribute("averagePriceByYear", averagePriceByYear);
+
+        return "statistics";
     }
 
     @PostMapping("/register_book")
@@ -91,4 +104,5 @@ public class BookController {
         model.addAttribute("message", "Book registered successfully!");
         return "new_book";
     }
+
 }
